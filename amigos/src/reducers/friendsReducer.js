@@ -32,9 +32,11 @@ export const friendsReducer = (state = initialState, action) => {
     case FRIENDS_FETCHED:
       return { ...state, fetching: false, fetched: true, friends: action.payload };
     case SAVING_FRIENDS:
-      return { ...state, saving: true, friends: action.payload };
+      return { ...state, saving: true };//friends: action.payload
+
     case FRIENDS_SAVED:
-      return { ...state, saving: false, saved: true, friends: action.payload }
+      return { ...state, saving: false,friends: action.payload } //friends: action.payload
+
     case ERROR:
       return { ...state, fetching: false, error: action.payload };
     // UPDATING_FRIEND
