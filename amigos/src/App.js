@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
 import { getFriends } from './actions';
+import FriendForm from './components/FriendForm.js'
 
 class App extends Component {
   componentDidMount() {
@@ -17,13 +18,20 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Amigos App</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <h1>Friends List here</h1>
+
+        <h2>FriendsForm Component</h2>
+        <FriendForm />
         <hr/>
-
-
+        <h2>FriendsList Component</h2>
+        <p>List Here</p>
+        <hr/>
+        {this.props.fetching ? (<img src={logo} className="App-logo" alt="logo" />) :
+                               (<ul>
+                                 {this.props.friends.map(friend => {
+                                    return <li className="Friend-Container" key={friend.name}>Name: {friend.name} Email: {friend.email} Age: {friend.age}</li>;
+                                 })}
+                               </ul>
+                              )}
       </div>
     );
   }
@@ -31,11 +39,14 @@ class App extends Component {
 
 const mapStateToProps = state => {
   console.log(state);
+  // const { friendGetter } = state
   return {
-    friends: state.friendGetter.friends,
-    fetching: state.friendGetter.fetching,
-    error: state.friendGetter.error
+    friends: state.friendsReducer.friends,
+    fetching: state.friendsReducer.fetching,
+    error: state.friendsReducer.error,
+    saving: state.friendsReducer.saving,
+    saved: state.friendsReducer.saved
   }
 }
 
-export default connect(mapStateToProps, { getFriends})(App);
+export default connect(mapStateToProps, { getFriends })(App);

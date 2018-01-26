@@ -7,7 +7,7 @@ import { createStore } from 'redux';
 import { applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import friendGetter from './reducers';
+import friendGetter from './reducers'; // no {} b/c it's the default
 import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(friendGetter, applyMiddleware(thunk, logger));
